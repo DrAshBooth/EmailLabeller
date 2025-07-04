@@ -1,0 +1,117 @@
+{
+    "request_id": "32c3e5f1-67e9-4a94-bb6e-98d1129db8a3",
+    "email": {
+      "header": {
+        "from": {
+          "email": "example@example.com",
+          "name": "John Doe"
+        },
+        "to": [
+          {
+            "email": "team@example.com",
+            "name": "Operations Team"
+          }
+        ],
+        "subject": "Trade Settlement Update Required",
+        "received": "2025-07-01T11:35:47",
+        "message_id": "ABCDEF123456"
+      },
+      "body": {
+        "content": "<html>\n  <body>\n    <p>Hello Team,</p>\n    <p>Please provide an update on the following trade settlement:</p>\n    <table border=\"1\">\n      <tr>\n        <th>Field</th>\n        <th>Value</th>\n      </tr>\n      <tr>\n        <td>Currency</td>\n        <td>USD</td>\n      </tr>\n      <tr>\n        <td>Amount</td>\n        <td>2500000</td>\n      </tr>\n      <tr>\n        <td>ISIN</td>\n        <td>US1234567890</td>\n      </tr>\n    </table>\n    <p>Also, please amend the value date to 2025-07-10 to align with the broker.</p>\n    <p>Best regards,<br>John Doe</p>\n  </body>\n</html>",
+        "document_type": "html"
+      }
+    },
+    "intent_parser_result": {
+      "model_info": {
+        "name": "intent_parser",
+        "version": "2.0.0"
+      },
+      "predictions": [
+        {
+          "prediction_id": "c4e80e9e-5918-4f5f-8366-c13282712b82",
+          "intent": "request_update",
+          "sender": "John Doe",
+          "action": "provide_status",
+          "artefact": {
+            "type": "trade",
+            "details": {
+              "currency": "USD",
+              "amount": "2500000",
+              "isin": "US1234567890"
+            }
+          },
+          "time_of_action": "future",
+          "evidence_spans": [
+            {
+              "type": "intent",
+              "source": "email_body",
+              "xpath": "/html/body/p[2]",
+              "relative_start": 7,
+              "relative_end": 44,
+              "text": "provide an update on the following trade settlement"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "currency",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[2]/td[2]",
+              "relative_start": 0,
+              "relative_end": 3,
+              "text": "USD"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "amount",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[3]/td[2]",
+              "relative_start": 0,
+              "relative_end": 7,
+              "text": "2500000"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "isin",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[4]/td[2]",
+              "relative_start": 0,
+              "relative_end": 12,
+              "text": "US1234567890"
+            }
+          ]
+        },
+        {
+          "prediction_id": "f92b8b77-0f22-4e94-9f02-82f9fca78a41",
+          "intent": "request_amendment",
+          "sender": "John Doe",
+          "action": "amend_value_date",
+          "artefact": {
+            "type": "trade",
+            "details": {
+              "new_value_date": "2025-07-10"
+            }
+          },
+          "time_of_action": "future",
+          "evidence_spans": [
+            {
+              "type": "intent",
+              "source": "email_body",
+              "xpath": "/html/body/p[3]",
+              "relative_start": 12,
+              "relative_end": 21,
+              "text": "amend the value date"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "new_value_date",
+              "source": "email_body",
+              "xpath": "/html/body/p[3]",
+              "relative_start": 25,
+              "relative_end": 35,
+              "text": "2025-07-10"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

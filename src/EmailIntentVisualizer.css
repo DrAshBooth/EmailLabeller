@@ -1,0 +1,582 @@
+/* EmailIntentVisualizer.css */
+
+.email-intent-visualizer {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  color: #333;
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --highlight-color: #e74c3c;
+  --background-color: #ffffff;
+  --card-background: #f8f9fa;
+  --border-color: #e1e4e8;
+  --text-color: #333;
+  --text-light: #6c757d;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --border-radius: 6px;
+}
+
+.email-intent-visualizer.dark {
+  --primary-color: #4dabf7;
+  --secondary-color: #51cf66;
+  --highlight-color: #ff6b6b;
+  --background-color: #212529;
+  --card-background: #343a40;
+  --border-color: #495057;
+  --text-color: #f8f9fa;
+  --text-light: #adb5bd;
+  color: var(--text-color);
+}
+
+.visualizer-container {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .visualizer-container {
+    flex-direction: column;
+  }
+}
+
+/* Email Section Styles */
+.email-section {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+}
+
+.email-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.email-header h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.email-metadata {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.email-metadata p {
+  margin: 4px 0;
+}
+
+.email-body {
+  padding: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  min-height: 300px;
+  position: relative;
+  color: var(--text-color);
+}
+
+.email-body.edit-mode {
+  background-color: rgba(var(--primary-color-rgb, 52, 152, 219), 0.05);
+  cursor: text;
+}
+
+/* Selection mode styles */
+.email-intent-visualizer.selection-mode .email-body {
+  background-color: rgba(var(--secondary-color-rgb, 46, 204, 113), 0.1);
+  border: 2px dashed var(--secondary-color, #2ecc71);
+  cursor: crosshair;
+}
+
+.selection-instructions {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--secondary-color, #2ecc71);
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.text-selection-button, .selection-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.text-selection-button:hover, .selection-btn:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.selection-btn.active {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+/* Resize handles for evidence spans */
+.resize-handle {
+  display: inline-block;
+  position: absolute;
+  width: 8px;
+  height: 100%;
+  background-color: var(--secondary-color, #2ecc71);
+  opacity: 0.6;
+  cursor: col-resize;
+  z-index: 5;
+}
+
+.resize-handle:hover {
+  opacity: 1;
+}
+
+.resize-handle.start {
+  left: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.resize-handle.end {
+  right: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.evidence-span.active {
+  position: relative;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Highlight Styles */
+.highlight, .evidence-span {
+  padding: 1px 0;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  display: inline;
+}
+
+/* Evidence span type-specific colors */
+.evidence-intent {
+  background-color: rgba(var(--primary-color-rgb, 52, 152, 219), 0.2);
+  border-bottom: 1px solid var(--primary-color, #3498db);
+}
+
+.evidence-action {
+  background-color: rgba(var(--secondary-color-rgb, 46, 204, 113), 0.2);
+  border-bottom: 1px solid var(--secondary-color, #2ecc71);
+}
+
+.evidence-artefact_type {
+  background-color: rgba(var(--highlight-color-rgb, 231, 76, 60), 0.2);
+  border-bottom: 1px solid var(--highlight-color, #e74c3c);
+}
+
+.evidence-artefact_detail {
+  background-color: rgba(241, 196, 15, 0.2);
+  border-bottom: 1px solid #f1c40f;
+}
+
+/* Evidence span styles */
+.evidence-span {
+  padding: 2px 4px;
+  margin: 0 1px;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+/* Styles for overlapping spans */
+.evidence-overlay-container {
+  position: relative;
+  display: inline;
+}
+
+.evidence-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.evidence-overlay.active {
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--secondary-color, #2ecc71);
+}
+
+/* Stack multiple overlays */
+.overlay-intent {
+  background-color: rgba(var(--primary-color-rgb, 52, 152, 219), 0.2);
+  border: 1px solid var(--primary-color, #3498db);
+  z-index: 10;
+}
+
+.overlay-action {
+  background-color: rgba(var(--secondary-color-rgb, 46, 204, 113), 0.2);
+  border: 1px solid var(--secondary-color, #2ecc71);
+  z-index: 11;
+}
+
+.overlay-artefact_type {
+  background-color: rgba(var(--highlight-color-rgb, 231, 76, 60), 0.2);
+  border: 1px solid var(--highlight-color, #e74c3c);
+  z-index: 12;
+}
+
+.overlay-artefact_detail {
+  background-color: rgba(241, 196, 15, 0.2);
+  border: 1px solid #f1c40f;
+  z-index: 13;
+}
+
+/* Type-specific styles with stronger colors for better visibility */
+.intent-evidence {
+  background-color: rgba(52, 152, 219, 0.3) !important;
+  border: 1px solid #3498db;
+  box-shadow: 0 0 0 1px #3498db;
+}
+
+.intent-evidence:hover {
+  background-color: rgba(52, 152, 219, 0.5) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.intent-evidence.active {
+  background-color: rgba(52, 152, 219, 0.7) !important;
+  box-shadow: 0 0 0 2px #3498db, 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.action-evidence {
+  background-color: rgba(241, 196, 15, 0.3) !important;
+  border: 1px solid #f39c12;
+  box-shadow: 0 0 0 1px #f39c12;
+}
+
+.action-evidence:hover {
+  background-color: rgba(241, 196, 15, 0.5) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.action-evidence.active {
+  background-color: rgba(241, 196, 15, 0.7) !important;
+  box-shadow: 0 0 0 2px #f39c12, 0 0 5px rgba(241, 196, 15, 0.5);
+}
+
+.artefact-type-evidence {
+  background-color: rgba(46, 204, 113, 0.3) !important;
+  border: 1px solid #2ecc71;
+  box-shadow: 0 0 0 1px #2ecc71;
+}
+
+.artefact-type-evidence:hover {
+  background-color: rgba(46, 204, 113, 0.5) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.artefact-type-evidence.active {
+  background-color: rgba(46, 204, 113, 0.7) !important;
+  box-shadow: 0 0 0 2px #2ecc71, 0 0 5px rgba(46, 204, 113, 0.5);
+}
+
+.artefact-detail-evidence {
+  background-color: rgba(155, 89, 182, 0.3) !important;
+  border: 1px solid #9b59b6;
+  box-shadow: 0 0 0 1px #9b59b6;
+}
+
+.artefact-detail-evidence:hover {
+  background-color: rgba(155, 89, 182, 0.5) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.artefact-detail-evidence.active {
+  background-color: rgba(155, 89, 182, 0.7) !important;
+  box-shadow: 0 0 0 2px #9b59b6, 0 0 5px rgba(155, 89, 182, 0.5);
+}
+
+.highlight-intent {
+  background-color: rgba(52, 152, 219, 0.2);
+  border-left: 4px solid #3498db;
+  padding-left: 4px;
+}
+
+.highlight-action {
+  background-color: rgba(241, 196, 15, 0.2);
+  border-left: 4px solid #f39c12;
+  padding-left: 4px;
+}
+
+.highlight-artefact_type {
+  background-color: rgba(46, 204, 113, 0.2);
+  border-left: 4px solid #2ecc71;
+  padding-left: 4px;
+}
+
+.highlight-artefact_detail {
+  background-color: rgba(155, 89, 182, 0.2);
+  border-left: 4px solid #9b59b6;
+  padding-left: 4px;
+}
+
+.highlight-default {
+  background-color: rgba(155, 89, 182, 0.2);
+  border-bottom: 2px solid #9b59b6;
+}
+
+.highlight.active {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  font-weight: 500;
+}
+
+.highlight.modified {
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* Predictions Section Styles */
+.predictions-section {
+  flex: 1;
+  min-width: 0;
+  max-width: 500px;
+}
+
+.predictions-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.prediction-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.prediction-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.prediction-card-intent {
+  border-left: 4px solid #3498db;
+}
+
+.prediction-card-action {
+  border-left: 4px solid #f39c12;
+}
+
+.prediction-card-artefact {
+  border-left: 4px solid #2ecc71;
+}
+
+.prediction-card.selected {
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.prediction-card.has-feedback {
+  border-left: 4px solid var(--secondary-color);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.card-header h4 {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+.feedback-indicator {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.card-content {
+  font-size: 0.9375rem;
+  color: var(--text-light);
+}
+
+.card-content p {
+  margin: 4px 0;
+}
+
+.artefact-details,
+.related-artefact {
+  margin-top: 8px;
+}
+
+.artefact-details p,
+.related-artefact p {
+  margin-bottom: 4px;
+}
+
+.artefact-details ul,
+.related-artefact ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* Prediction Actions Styles */
+.prediction-actions {
+  padding: 16px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  margin-top: 16px;
+}
+
+.prediction-actions h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.125rem;
+  color: var(--text-color);
+}
+
+.span-actions {
+  margin-bottom: 16px;
+}
+
+.instruction {
+  font-style: italic;
+  color: var(--text-light);
+}
+
+/* Edit Controls Styles */
+.span-edit-controls {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+  border: 1px dashed var(--primary-color);
+}
+
+.span-edit-controls h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.edit-field {
+  margin-bottom: 12px;
+}
+
+.edit-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.edit-field select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 0.9375rem;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Button Styles */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.edit-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.edit-btn.active {
+  background-color: #e74c3c;
+}
+
+.apply-btn {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.apply-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 24px;
+}

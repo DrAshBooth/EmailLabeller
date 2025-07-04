@@ -1,0 +1,95 @@
+{
+    "request_id": "7e4d9458-3a1b-47d6-8579-8b9a0f8eab2f",
+    "email": {
+      "header": {
+        "from": {
+          "email": "mark.jones@client.com",
+          "name": "Mark Jones"
+        },
+        "to": [
+          {
+            "email": "operations@example.com",
+            "name": "Ops Team"
+          }
+        ],
+        "subject": "Urgent: SSI Change Required",
+        "received": "2025-07-03T15:50:21",
+        "message_id": "MSG987654LMN"
+      },
+      "body": {
+        "content": "<html>\n  <body>\n    <p>Hi Ops Team,</p>\n    <p>The following SSI requires amendment urgently:</p>\n    <table border=\"1\">\n      <tr>\n        <th>Field</th>\n        <th>Current Value</th>\n        <th>New Value</th>\n      </tr>\n      <tr>\n        <td>Account Number</td>\n        <td>123456789</td>\n        <td>987654321</td>\n      </tr>\n      <tr>\n        <td>SWIFT</td>\n        <td>ABCDEF12</td>\n        <td>ZYXWVU34</td>\n      </tr>\n    </table>\n    <p>Please update these details ASAP.</p>\n    <p>Regards,<br>Mark</p>\n  </body>\n</html>",
+        "document_type": "html"
+      }
+    },
+    "intent_parser_result": {
+      "model_info": {
+        "name": "intent_parser",
+        "version": "2.0.0"
+      },
+      "predictions": [
+        {
+          "prediction_id": "d6134b35-047b-4fd9-89ac-0c7c12e28e5d",
+          "intent": "request_amendment",
+          "sender": "Mark Jones",
+          "action": "amend_ssi",
+          "artefact": {
+            "type": "ssi",
+            "details": {
+              "old_account": "123456789",
+              "new_account": "987654321",
+              "old_swift": "ABCDEF12",
+              "new_swift": "ZYXWVU34"
+            }
+          },
+          "time_of_action": "future",
+          "evidence_spans": [
+            {
+              "type": "intent",
+              "source": "email_body",
+              "xpath": "/html/body/p[2]",
+              "relative_start": 4,
+              "relative_end": 38,
+              "text": "SSI requires amendment urgently"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "old_account",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[2]/td[2]",
+              "relative_start": 0,
+              "relative_end": 9,
+              "text": "123456789"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "new_account",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[2]/td[3]",
+              "relative_start": 0,
+              "relative_end": 9,
+              "text": "987654321"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "old_swift",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[3]/td[2]",
+              "relative_start": 0,
+              "relative_end": 8,
+              "text": "ABCDEF12"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "new_swift",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[3]/td[3]",
+              "relative_start": 0,
+              "relative_end": 8,
+              "text": "ZYXWVU34"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

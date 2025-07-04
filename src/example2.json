@@ -1,0 +1,107 @@
+{
+    "request_id": "aa87fcef-8e4f-4d23-90f5-b8b26b8722b0",
+    "email": {
+      "header": {
+        "from": {
+          "email": "alice.smith@client.com",
+          "name": "Alice Smith"
+        },
+        "to": [
+          {
+            "email": "payments@example.com",
+            "name": "Payments Team"
+          }
+        ],
+        "subject": "Clarification on Payment Instructions",
+        "received": "2025-07-02T09:14:33",
+        "message_id": "MSG456789XYZ"
+      },
+      "body": {
+        "content": "<html>\n  <body>\n    <p>Dear Payments Team,</p>\n    <p>Can you confirm the beneficiary account details for the following payment?</p>\n    <table border=\"1\">\n      <tr>\n        <th>Field</th>\n        <th>Value</th>\n      </tr>\n      <tr>\n        <td>Beneficiary</td>\n        <td>Acme Ltd</td>\n      </tr>\n      <tr>\n        <td>Amount</td>\n        <td>150000 EUR</td>\n      </tr>\n    </table>\n    <p>Please also confirm if the payment date can be amended to 2025-07-15.</p>\n    <p>Thanks,<br>Alice</p>\n  </body>\n</html>",
+        "document_type": "html"
+      }
+    },
+    "intent_parser_result": {
+      "model_info": {
+        "name": "intent_parser",
+        "version": "2.0.0"
+      },
+      "predictions": [
+        {
+          "prediction_id": "1f6e2c91-8f27-4b5c-b1a2-c890acf1d03e",
+          "intent": "request_confirmation",
+          "sender": "Alice Smith",
+          "action": "confirm_details",
+          "artefact": {
+            "type": "payment",
+            "details": {
+              "beneficiary": "Acme Ltd",
+              "amount": "150000 EUR"
+            }
+          },
+          "time_of_action": "future",
+          "evidence_spans": [
+            {
+              "type": "intent",
+              "source": "email_body",
+              "xpath": "/html/body/p[2]",
+              "relative_start": 4,
+              "relative_end": 57,
+              "text": "confirm the beneficiary account details for the following payment"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "beneficiary",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[2]/td[2]",
+              "relative_start": 0,
+              "relative_end": 8,
+              "text": "Acme Ltd"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "amount",
+              "source": "email_body",
+              "xpath": "/html/body/table/tr[3]/td[2]",
+              "relative_start": 0,
+              "relative_end": 10,
+              "text": "150000 EUR"
+            }
+          ]
+        },
+        {
+          "prediction_id": "f25d5b67-d52d-4ee5-9b5d-f6f1c332cc39",
+          "intent": "request_amendment",
+          "sender": "Alice Smith",
+          "action": "amend_payment_date",
+          "artefact": {
+            "type": "payment",
+            "details": {
+              "new_payment_date": "2025-07-15"
+            }
+          },
+          "time_of_action": "future",
+          "evidence_spans": [
+            {
+              "type": "intent",
+              "source": "email_body",
+              "xpath": "/html/body/p[4]",
+              "relative_start": 7,
+              "relative_end": 54,
+              "text": "confirm if the payment date can be amended to 2025-07-15"
+            },
+            {
+              "type": "artefact_detail",
+              "field": "new_payment_date",
+              "source": "email_body",
+              "xpath": "/html/body/p[4]",
+              "relative_start": 43,
+              "relative_end": 53,
+              "text": "2025-07-15"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  
