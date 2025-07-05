@@ -211,15 +211,67 @@
 
 .evidence-overlay {
   position: absolute;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 2px;
-  box-sizing: border-box;
+  z-index: 2;
+  opacity: 0.6;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.evidence-overlay:hover {
+  opacity: 0.8;
 }
 
 .evidence-overlay.active {
-  z-index: 2;
-  box-shadow: 0 0 0 2px var(--secondary-color, #2ecc71);
+  opacity: 0.9;
+  outline: 2px solid black;
+}
+
+/* Color coding for different evidence types */
+.overlay-intent {
+  background-color: rgba(255, 182, 193, 0.7); /* Light pink */
+  border: 1px solid #ff6b81;
+}
+
+.overlay-action {
+  background-color: rgba(135, 206, 250, 0.7); /* Light blue */
+  border: 1px solid #4aa9ff;
+}
+
+.overlay-artefact_type {
+  background-color: rgba(152, 251, 152, 0.7); /* Light green */
+  border: 1px solid #3cb371;
+}
+
+.overlay-artefact_detail {
+  background-color: rgba(255, 215, 0, 0.7); /* Gold */
+  border: 1px solid #daa520;
+}
+
+/* Selection mode styles */
+.selection-mode {
+  cursor: text !important;
+  outline: 2px dashed #1890ff;
+  background-color: rgba(24, 144, 255, 0.05);
+}
+
+.selection-guide {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1890ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* Stack multiple overlays */
@@ -423,6 +475,33 @@
   font-size: 1.125rem;
   color: var(--text-color);
   text-transform: capitalize;
+}
+
+.prediction-card .highlight-match {
+  background-color: #ffeb99;
+  border-bottom: 2px solid #ffcc00;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Clickable elements in prediction cards */
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+/* Editing state indicators */
+.editing {
+  background-color: #e6f7ff;
+  border: 1px dashed #1890ff;
+  border-radius: 4px;
+  padding: 2px 4px;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 
 .feedback-indicator {
